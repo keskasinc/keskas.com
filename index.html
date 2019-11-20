@@ -44,10 +44,13 @@
           <h1 class="mb-5">Join the waitlist for early access.</h1>
         </div>
         <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
-          <form>
+          <form onsubmit="return signup(this)">
             <div class="form-row">
               <div class="col-12 col-md-9 mb-2 mb-md-0">
-                <input type="email" class="form-control form-control-lg" placeholder="Enter your email...">
+                <p data-name="success" class="text-success"></p>
+                <p data-name="error" class="text-danger"></p>
+
+                <input type="email" class="form-control form-control-lg" placeholder="Enter your email..." name="email">
               </div>
               <div class="col-12 col-md-3">
                 <button type="submit" class="btn btn-block btn-lg btn-primary">Sign up!</button>
@@ -162,10 +165,13 @@
           <h2 class="mb-4">Ready to get started? Join the waitlist now!</h2>
         </div>
         <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
-          <form>
+          <form onsubmit="return signup(this)">
             <div class="form-row">
               <div class="col-12 col-md-9 mb-2 mb-md-0">
-                <input type="email" class="form-control form-control-lg" placeholder="Enter your email...">
+                <p data-name="success" class="text-success"></p>
+                <p data-name="error" class="text-danger"></p>
+
+                <input type="email" class="form-control form-control-lg" placeholder="Enter your email..." name="email">
               </div>
               <div class="col-12 col-md-3">
                 <button type="submit" class="btn btn-block btn-lg btn-primary">Sign up!</button>
@@ -227,7 +233,46 @@
   <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.4.0/firebase-database.js"></script>
 
+  <script>
+    var firebaseConfig = {
+      apiKey: "AIzaSyCPtKpSrk5nE7G4VAVhvlTt6kI4mKlqZVo",
+      authDomain: "landing-page-3c0c7.firebaseapp.com",
+      databaseURL: "https://landing-page-3c0c7.firebaseio.com",
+      projectId: "landing-page-3c0c7",
+      storageBucket: "landing-page-3c0c7.appspot.com",
+      messagingSenderId: "164116629047",
+      appId: "1:164116629047:web:f4a5a9e95154a62784e1b2",
+      measurementId: "G-5YQFK11QZJ"
+    };
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+  </script>
+
+  <script>
+    var onSignupComplete = function($form) {
+      $form.find('button').attr('disabled', false);
+      $form.find('p[data-name=success]').text("Thanks for signing up!");
+    },
+      signup = function(form) {
+        var $form = $(form);
+        $form.find('button').attr('disabled', true);
+
+        firebase.
+          database().
+          ref().
+          child('signups').
+          push({
+            email: form.email.value
+          });
+        onSignupComplete($form);
+
+        return false;
+      };
+  </script>
 </body>
 
 </html>
