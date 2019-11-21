@@ -71,7 +71,14 @@ function modules() {
     .pipe(gulp.dest('./vendor/simple-line-icons/fonts'));
   var simpleLineIconsCSS = gulp.src('./node_modules/simple-line-icons/css/**')
     .pipe(gulp.dest('./vendor/simple-line-icons/css'));
-  return merge(bootstrap, fontAwesomeCSS, fontAwesomeWebfonts, jquery, jqueryEasing, simpleLineIconsFonts, simpleLineIconsCSS);
+
+  // Firebase
+  var firebaseApp = gulp.src('./node_modules/firebase/firebase-app.js')
+    .pipe(gulp.dest('./vendor/firebase/'));
+  var firebaseDatabase = gulp.src('./node_modules/firebase/firebase-database.js')
+    .pipe(gulp.dest('./vendor/firebase/'));
+
+  return merge(bootstrap, fontAwesomeCSS, fontAwesomeWebfonts, jquery, jqueryEasing, simpleLineIconsFonts, simpleLineIconsCSS, firebaseApp, firebaseDatabase);
 }
 
 // CSS task
