@@ -236,44 +236,7 @@
 
   <script src="vendor/firebase/firebase-app.js"></script>
   <script src="vendor/firebase/firebase-database.js"></script>
-
-  <script>
-    var firebaseConfig = {
-      apiKey: "AIzaSyCPtKpSrk5nE7G4VAVhvlTt6kI4mKlqZVo",
-      authDomain: "landing-page-3c0c7.firebaseapp.com",
-      databaseURL: "https://landing-page-3c0c7.firebaseio.com",
-      projectId: "landing-page-3c0c7",
-      storageBucket: "landing-page-3c0c7.appspot.com",
-      messagingSenderId: "164116629047",
-      appId: "1:164116629047:web:f4a5a9e95154a62784e1b2",
-      measurementId: "G-5YQFK11QZJ"
-    };
-    firebase.initializeApp(firebaseConfig);
-    firebase.analytics();
-  </script>
-
-  <script>
-    var onSignupComplete = function($form) {
-      $form.find('button').attr('disabled', false);
-      $form.find('p[data-name=success]').text("Thanks for signing up!");
-    },
-      signup = function(form) {
-        var $form = $(form);
-        $form.find('button').attr('disabled', true);
-
-        firebase.
-          database().
-          ref().
-          child('signups').
-          push({
-            email: form.email.value
-          });
-        form.email.value = "";
-        onSignupComplete($form);
-
-        return false;
-      };
-  </script>
+  <script src="dist/app.min.js"></script>
 </body>
 
 </html>
